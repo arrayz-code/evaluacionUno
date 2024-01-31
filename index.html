@@ -5,40 +5,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>POO TIENDA</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-
-
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-gray-100">
     <nav></nav>
     <div class="container mx-auto p-4">
-       <div id="App" class="flex justify-center items-center h-screen">
-          <div class="w-full max-w-md">
-             <div class="bg-white shadow-md rounded p-4">
-                <div class="text-center">
-                   <h4 class="text-lg font-semibold">Añadir Producto</h4>
+        <div id="App" class="flex justify-center items-center h-screen">
+            <div class="w-full max-w-md">
+                <div class="bg-white shadow-md rounded p-4">
+                    <div class="text-center">
+                        <h4 class="text-lg font-semibold">Añadir Producto</h4>
+                    </div>
+                    <form id="product-form">
+                        <div class="mb-4">
+                            <input type="text" id="name" placeholder="Nombre del Producto" class="w-full px-3 py-2 border rounded">
+                        </div>
+                        <div class="mb-4">
+                            <input type="number" step="0.01" id="price" placeholder="Precio del Producto" class="w-full px-3 py-2 border rounded">
+                        </div>
+                        <div class="mb-4">
+                            <input type="text" id="description" placeholder="Descripcion del Producto" class="w-full px-3 py-2 border rounded">
+                        </div>
+                        <input type="submit" value="Guardar" class="w-full bg-blue-500 text-white px-3 py-2 rounded cursor-pointer">
+                    </form>
+                    <!-- Formulario de búsqueda con Tailwind CSS -->
+                    <form id="search-form" class="mt-4">
+                        <div class="mb-4">
+                            <label for="search-input" class="block text-sm font-medium text-gray-600">Buscar Producto:</label>
+                            <input type="text" id="search-input" placeholder="Nombre del Producto"
+                                class="mt-1 p-2 border rounded-md w-full">
+                        </div>
+                        <button type="submit" class="w-full bg-blue-500 text-white px-3 py-2 rounded cursor-pointer">Buscar</button>
+                    </form>
+
+                    <div id="product-list" class="mt-4"></div>
                 </div>
-                <form id="product-form">
-                   <div class="mb-4">
-                      <input type="text" id="name" placeholder="Nombre del Producto" class="w-full px-3 py-2 border rounded">
-                   </div>
-                   <div class="mb-4">
-                      <input type="number" step="0.01" id="price" placeholder="Precio del Producto" class="w-full px-3 py-2 border rounded">
-                   </div>
-                   <div class="mb-4">
-                      <input type="text" id="description" placeholder="Descripcion del Producto" class="w-full px-3 py-2 border rounded">
-                   </div>
-                   <input type="submit" value="Guardar" class="w-full bg-blue-500 text-white px-3 py-2 rounded cursor-pointer">
-                </form>
-             </div>
-             <div id="product-list" class="mt-4"></div>
-          </div>
-       </div>
+
+              
+            </div>
+        </div>
     </div>
- 
+
     <script src="app.js"></script>
- </body>
- 
+</body>
 
 </html>

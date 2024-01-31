@@ -9,6 +9,14 @@ class Product {
 class UI {
     addProduct(product) {
         const productList = document.getElementById("product-list");
+        const table = this.createProductTable(product);
+        productList.appendChild(table);
+
+        // Guardar en localStorage
+        this.saveToLocalStorage(product);
+    }
+
+    createProductTable(product) {
         const table = document.createElement("table");
         table.className = "table-auto w-full mt-4";
         table.innerHTML = `
@@ -31,10 +39,7 @@ class UI {
                 </tr>
             </tbody>
         `;
-        productList.appendChild(table);
-
-        // Guardar en localStorage
-        this.saveToLocalStorage(product);
+        return table;
     }
 
     resetForm() {
@@ -69,15 +74,39 @@ class UI {
     }
 
     saveToLocalStorage(product) {
-        let products = JSON.parse(localStorage.getItem("products")) || [];
+        let products = this.getProductsFromLocalStorage();
         products.push(product);
         localStorage.setItem("products", JSON.stringify(products));
     }
 
     removeFromLocalStorage(productName) {
-        let products = JSON.parse(localStorage.getItem("products")) || [];
+        let products = this.getProductsFromLocalStorage();
         products = products.filter(product => product.name.toLowerCase() !== productName);
         localStorage.setItem("products", JSON.stringify(products));
+    }
+
+    getProductsFromLocalStorage() {
+        return JSON.parse(localStorage.getItem("products")) || [];
+    }
+
+    renderProducts(products) {
+        const productList = document.getElementById("product-list");
+        productList.innerHTML = "";
+
+        if (products.length === 0) {
+            const noResultsMessage = document.createElement("p");
+            noResultsMessage.textContent = "No se encontraron resultados.";
+            productList.appendChild(noResultsMessage);
+        } else {
+            products.forEach(product => {
+                const table = this.createProductTable(product);
+                productList.appendChild(table);
+            });
+        }
+    }
+
+    filterProductsByName(products, filterText) {
+        return products.filter(product => product.name.toLowerCase().includes(filterText.toLowerCase()));
     }
 }
 
@@ -105,3 +134,18 @@ document.getElementById("product-list").addEventListener("click", function (e) {
     const ui = new UI();
     ui.deleteProduct(e.target);
 });
+
+document.getElementById("search-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const ui = new UI();
+    const filterText = document.getElementById("search-input").value;
+    const products = ui.getProductsFromLocalStorage();
+    const filteredProducts = ui.filterProductsByName(products, filterText);
+
+    ui.renderProducts(filteredProducts);
+});
+
+// Ejemplo de uso de la función de renderizado dinámico
+// const products = ui.getProductsFromLocalStorage();
+// ui.renderProducts(products);
