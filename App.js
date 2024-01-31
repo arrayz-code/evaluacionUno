@@ -146,6 +146,5 @@ document.getElementById("search-form").addEventListener("submit", function (e) {
     ui.renderProducts(filteredProducts);
 });
 
-// Ejemplo de uso de la función de renderizado dinámico
-// const products = ui.getProductsFromLocalStorage();
-// ui.renderProducts(products);
+const products = ui.getProductsFromLocalStorage();
+ui.renderProducts(products);
